@@ -20,7 +20,7 @@ test('button color turns blue when clicked', () => {
   expect(colorButton).toHaveTextContent('Change to red')
 })
 
-test.only('intial stages of button and checkbox', () => {
+test('intial stages of button and checkbox', () => {
   render(<App/>)
 
   //check if button is present and enabled
@@ -30,4 +30,20 @@ test.only('intial stages of button and checkbox', () => {
   //check if checkbox is present and unchecked
   const checkbox = screen.getByRole('checkbox')
   expect(checkbox).not.toBeChecked()
+})
+
+test.only('checking checkbox funcionality',() => {
+  render(<App />)
+  const colorButton = screen.getByRole('button', {name: 'Change to blue'})
+  const checkbox = screen.getByRole('checkbox')
+
+  //check if  button is disabled when checkbox is checked
+  fireEvent.click(checkbox)
+  expect(checkbox).toBeChecked()
+  expect(colorButton).toBeDisabled()
+
+  //check if  button is enabled when chekbox is unchecked
+  fireEvent.click(checkbox)
+  expect(checkbox).not.toBeChecked()
+  expect(colorButton).toBeEnabled()
 })
