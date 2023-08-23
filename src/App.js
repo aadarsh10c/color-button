@@ -2,21 +2,16 @@ import React from 'react';
 import './App.css';
 
 function App() {
-  const [change, setChange] = React.useState(false)
+  const [currentcolor , setCurrentColor] = React.useState('red')
+  const nextColor = currentcolor === 'red' ? 'blue' : 'red'
   return (
     <div className='App'>
-      {
-        change ? (
-          <button 
-            onClick={() => setChange(prevValue => !prevValue)} 
-            style={{backgroundColor: 'blue'}} >Change to red</button>
-        ):(
-          <button 
-            onClick={() => setChange(prevValue => !prevValue)} 
-            style={{backgroundColor: 'red'}} >Change to blue</button>
-
-        )
-      }
+      <button 
+        onClick={() => setCurrentColor(nextColor)}
+        style={{backgroundColor : currentcolor}}
+      >
+        Change to {nextColor}
+      </button>
     </div>
   );
 }
