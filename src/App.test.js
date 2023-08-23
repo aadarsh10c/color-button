@@ -32,7 +32,7 @@ test('intial stages of button and checkbox', () => {
   expect(checkbox).not.toBeChecked()
 })
 
-test.only('checking checkbox funcionality',() => {
+test('checking checkbox funcionality',() => {
   render(<App />)
   const colorButton = screen.getByRole('button', {name: 'Change to blue'})
   const checkbox = screen.getByRole('checkbox')
@@ -46,4 +46,40 @@ test.only('checking checkbox funcionality',() => {
   fireEvent.click(checkbox)
   expect(checkbox).not.toBeChecked()
   expect(colorButton).toBeEnabled()
+})
+
+test('cheking style of button on checkbox funcionality',() => {
+  render(<App/>)
+  const colorButton = screen.getByRole('button', {name: 'Change to blue'})
+  const checkbox = screen.getByRole('checkbox', {name: 'Disable Button'})
+
+  //intial render
+  expect(colorButton).toHaveStyle(`
+    background-color: red;
+  `)
+
+  expect(checkbox).not.toBeChecked()
+
+  //when checked backgound is gray, and unchecked backgound is red
+  fireEvent.click(checkbox)
+  expect(colorButton).toHaveStyle(`
+    background-color: gray;
+  `)
+
+  fireEvent.click(checkbox)
+  expect(colorButton).toHaveStyle(`
+    background-color: red;
+  `)
+
+  //button is blue when unchecked and gray when checked
+  fireEvent.click(colorButton)
+  expect(colorButton).toHaveTextContent('Change to red')
+
+  fireEvent.click(checkbox)
+  expect(colorButton).toHaveStyle(`
+    background-color: gray;
+  `)
+
+  fireEvent.click(checkbox)
+  expect(colorButton).toHaveTextContent('Change to red')
 })
